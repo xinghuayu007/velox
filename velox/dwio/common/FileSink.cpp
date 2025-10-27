@@ -107,6 +107,19 @@ std::unique_ptr<FileSink> FileSink::create(
   VELOX_FAIL("FileSink is not registered for {}", filePath);
 }
 
+std::unique_ptr<FileSink> FileSink::createImpl(
+    const std::string& filePath,
+    const NewOptions& options) {
+  VELOX_CHECK_NOT_NULL(options.metricLogger);
+  for (auto& factory : factories()) {
+    auto result = factory(filePath, options);
+    if (result) {
+      return result;
+    }
+  }
+  VELOX_FAIL("FileSink is not registered for {}", filePath);
+}
+
 WriteFileSink::WriteFileSink(
     std::unique_ptr<WriteFile> writeFile,
     std::string name,

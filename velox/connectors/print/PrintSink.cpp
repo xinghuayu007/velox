@@ -49,7 +49,7 @@ std::unique_ptr<dwio::common::Writer> PrintSink::createWriter(
               .bufferWrite = false,
               .pool = queryCtx_->memoryPool(),
               .metricLogger = dwio::common::MetricsLog::voidLog(),
-              .stats = ioStats.get(),
+              .stats = ioStats,
           });
   auto writerFactory =
       dwio::common::getWriterFactory(dwio::common::FileFormat::TEXT);

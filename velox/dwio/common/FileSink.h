@@ -46,6 +46,21 @@ class FileSink : public Closeable {
     memory::MemoryPool* pool{nullptr};
     MetricsLogPtr metricLogger{MetricsLog::voidLog()};
     IoStatistics* stats{nullptr};
+
+   struct Options {
+     /// If true, allows file sink to buffer data before persist to storage.
+     bool bufferWrite{true};
+     /// Connector properties are required to create a FileSink on FileSystems
+     /// such as S3.
+     const std::shared_ptr<const config::ConfigBase>& connectorProperties{
+         nullptr};
+     /// Config used to create sink files. This config is provided to underlying
+     /// file system and the config is free form. The form should be defined by
+     /// the underlying file system.
+     const std::string fileCreateConfig{""};
+     memory::MemoryPool* pool{nullptr};
+     MetricsLogPtr metricLogger{MetricsLog::voidLog()};
+     shared_ptr<IoStatistics> stats;
   };
 
   FileSink(std::string name, const Options& options)
@@ -98,6 +113,10 @@ class FileSink : public Closeable {
   static std::unique_ptr<FileSink> create(
       const std::string& filePath,
       const Options& options);
+
+  static std::unique_ptr<FileSink> createImpl(
+      const std::string& filePath,
+      const NewOptions& options);
 
   IoStatistics* getIoStatistics() {
     return stats_;
