@@ -107,15 +107,11 @@ class FileSink : public Closeable {
 
   using Factory = std::function<std::unique_ptr<FileSink>(
       const std::string& name,
-      const FileSink::Options& options)>;
+      const FileSink::NewOptions& options)>;
 
   static bool registerFactory(const Factory& factory);
 
   static std::unique_ptr<FileSink> create(
-      const std::string& filePath,
-      const Options& options);
-
-  static std::unique_ptr<FileSink> createImpl(
       const std::string& filePath,
       const NewOptions& options);
 
