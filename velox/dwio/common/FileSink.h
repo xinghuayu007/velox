@@ -61,7 +61,7 @@ class FileSink : public Closeable {
      const std::string fileCreateConfig{""};
      memory::MemoryPool* pool{nullptr};
      MetricsLogPtr metricLogger{MetricsLog::voidLog()};
-     shared_ptr<IoStatistics> stats;
+     std::shared_ptr<IoStatistics> stats;
    };
 
   FileSink(std::string name, const Options& options)
