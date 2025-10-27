@@ -45,7 +45,7 @@ class FileSink : public Closeable {
     const std::string fileCreateConfig{""};
     memory::MemoryPool* pool{nullptr};
     MetricsLogPtr metricLogger{MetricsLog::voidLog()};
-    IoStatistics* stats{nullptr}
+    IoStatistics* stats{nullptr};
   };
 
    struct NewOptions {
@@ -61,7 +61,7 @@ class FileSink : public Closeable {
      const std::string fileCreateConfig{""};
      memory::MemoryPool* pool{nullptr};
      MetricsLogPtr metricLogger{MetricsLog::voidLog()};
-     shared_ptr<IoStatistics> stats
+     shared_ptr<IoStatistics> stats;
    };
 
   FileSink(std::string name, const Options& options)
