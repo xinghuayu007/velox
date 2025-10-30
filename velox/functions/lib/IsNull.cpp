@@ -52,6 +52,7 @@ class IsNullFunction : public exec::VectorFunction {
 
     BufferPtr isNull;
     if (arg->isFlatEncoding()) {
+      std::cout << "wangxixu-bimat-null" << std::endl;
       if constexpr (IsNotNULL) {
         isNull = arg->nulls();
       } else {
