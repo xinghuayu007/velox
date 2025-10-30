@@ -17,6 +17,8 @@
 #include "velox/expression/EvalCtx.h"
 #include "velox/expression/VectorFunction.h"
 
+#include <iostream>
+
 namespace facebook::velox::functions {
 namespace {
 
@@ -31,6 +33,7 @@ class IsNullFunction : public exec::VectorFunction {
       VectorPtr& result) const override {
     auto* arg = args[0].get();
     auto* pool = context.pool();
+    std::cout << "wangxixu-isnull-function:" << std::endl;
     if (arg->isConstantEncoding()) {
       bool isNull = arg->isNullAt(rows.begin());
       auto localResult = BaseVector::createConstant(
